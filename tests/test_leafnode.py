@@ -2,7 +2,6 @@ import unittest
 
 from src.leafnode import LeafNode
 
-
 class TestLeafNode(unittest.TestCase):
     def test_leaf_to_html_p(self):
         node = LeafNode("p", "Hello, world!")
@@ -56,6 +55,8 @@ class TestLeafNode(unittest.TestCase):
     def test_repr_no_tag(self):
         node = LeafNode(None, "Just text")
         self.assertEqual(repr(node), "LeafNode(tag=None, value='Just text', props=None)")
+
+    
 
 
 
