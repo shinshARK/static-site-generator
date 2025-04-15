@@ -45,6 +45,17 @@ class TestHTMLNode(unittest.TestCase):
             repr(node)
         )
 
+    def test_to_html_not_implemented(self):
+        node = HTMLNode(
+            "div",
+            "Hello, world!",
+            None,
+            {"class": "greeting", "href": "https://boot.dev"},
+        )
+        with self.assertRaises(NotImplementedError):
+            node.to_html()
+        
+
     def test_repr_with_child(self):
         child = HTMLNode("h2", "heading 2!")
         node = HTMLNode("h1", "title", [child], None)
