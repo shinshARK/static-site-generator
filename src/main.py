@@ -1,7 +1,6 @@
 from src.textnode import TextNode, TextType
-from src.htmlnode import HTMLNode
-from src.leafnode import LeafNode
-from src.parentnode import ParentNode
+from src.htmlnode import HTMLNode, LeafNode, ParentNode
+
 
 def main():
     # test = TextNode("This is some anchor text", TextType.LINK, "https://www.boot.dev")
@@ -27,5 +26,6 @@ def main():
     parent_node = ParentNode("div", [child_node])
 
     print(parent_node.to_html())
+
 
 main()
