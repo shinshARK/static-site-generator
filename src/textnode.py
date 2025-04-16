@@ -1,5 +1,6 @@
 from enum import Enum
-from src.leafnode import LeafNode
+from src.htmlnode import LeafNode
+
 
 class TextType(Enum):
     TEXT = "text"
@@ -9,26 +10,28 @@ class TextType(Enum):
     LINK = "link"
     IMAGE = "image"
 
-class TextNode():
-    def __init__(self, text, text_type, url = None):
+
+class TextNode:
+    def __init__(self, text, text_type, url=None):
         self.text = text
         self.text_type = text_type
         self.url = url
 
     def __eq__(self, other):
         if (
-            self.text == other.text and
-            self.text_type == other.text_type and
-            self.url == other.url
+            self.text == other.text
+            and self.text_type == other.text_type
+            and self.url == other.url
         ):
             return True
         return False
-    
+
     def __repr__(self):
-        return f"TextNode({self.text}, {self.text_type.value}, {self.url})"
-    
+        return f"TextNode({repr(self.text)}, {repr(self.text_type.value)}, {repr(self.url)})"
+
+
 def text_node_to_html_node(text_node):
-    match(text_node.text_type):
+    match (text_node.text_type):
         case TextType.TEXT:
             return LeafNode(None, text_node.text)
         case TextType.BOLD:
@@ -40,6 +43,6 @@ def text_node_to_html_node(text_node):
         case TextType.LINK:
             return LeafNode("a", text_node.text, {"href": text_node.url})
         case TextType.LINK:
-            return LeafNode("a", '', {"src": text_node.url, "alt": text_node.text})
+            return LeafNode("a", "", {"src": text_node.url, "alt": text_node.text})
         case _:
             raise Exception("invalid text type")
