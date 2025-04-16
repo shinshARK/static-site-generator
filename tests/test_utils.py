@@ -19,7 +19,7 @@ class TestUtils(unittest.TestCase):
         node = TextNode(
             "This is a text with **multiple** bold **usages** yep", TextType.TEXT
         )
-        new_nodes = split_nodes_delimiter([node], "*", TextType.BOLD)
+        new_nodes = split_nodes_delimiter([node], "**", TextType.BOLD)
         expected_nodes = [
             TextNode("This is a text with ", TextType.TEXT),
             TextNode("multiple", TextType.BOLD),
@@ -62,6 +62,19 @@ class TestUtils(unittest.TestCase):
         node = TextNode("Testing `print('hello world') testing", TextType.TEXT)
         with self.assertRaises(Exception):
             new_nodes = split_nodes_delimiter([node], "`", TextType.ITALIC)
+
+    def test_delim_bold_and_italic(self):
+        node = TextNode("**bold** and _italic_", TextType.TEXT)
+        new_nodes = split_nodes_delimiter([node], "**", TextType.BOLD)
+        new_nodes = split_nodes_delimiter(new_nodes, "_", TextType.ITALIC)
+        self.assertListEqual(
+            [
+                TextNode("bold", TextType.BOLD),
+                TextNode(" and ", TextType.TEXT),
+                TextNode("italic", TextType.ITALIC),
+            ],
+            new_nodes,
+        )
 
 
 if __name__ == "__main__":
